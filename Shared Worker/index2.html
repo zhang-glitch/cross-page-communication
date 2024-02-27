@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const worker = new SharedWorker("worker.js")
+    worker.port.start()
+    worker.port.addEventListener("message", (event) => {
+      if(event.data?.type === "first") { // 页面一发送的消息
+          console.log("页面二：event", event)
+      }
+    })
+
+    // 轮询向worker（中转站）发送消息
+    setInterval(() => {
+      console.log("一直在轮询...")
+      worker.port.postMessage({
+        type: "second"
+      })
+    }, 1000)
+  </script>
+</body>
+</html>

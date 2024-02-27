@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 表示通道名称的字符串；对于相同的来源下的所有浏览上下文，一个名称只对应一个通道。
+    const channel = new BroadcastChannel("broadcastChannel way");
+    // 监听消息的发送
+    channel.addEventListener("message", (event) => {
+      console.log("event", event) // event.data就是监听的消息
+      channel.close();
+    });
+  </script>
+</body>
+</html>

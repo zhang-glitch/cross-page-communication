@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="text">
+  <button id="btn">发送数据</button>
+  <script>
+    const text = document.querySelector("#text")
+    const btn = document.querySelector("#btn")
+
+    // 创建频道
+    // 表示通道名称的字符串；对于相同的来源下的所有浏览上下文，一个名称只对应一个通道。
+    const broadCastChannel = new BroadcastChannel("broadcastChannel way")
+    btn.onclick = () => {
+      // 可以直接传递对象，无需转化成json
+      broadCastChannel.postMessage({
+        sendMessage: text.value
+      })
+      broadCastChannel.close();
+    }
+  </script>
+</body>
+</html>

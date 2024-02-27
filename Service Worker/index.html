@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="text">
+  <button id="btn">发送消息</button>
+  <script>
+    const btn = document.querySelector("#btn")
+    const text = document.querySelector("#text")
+    // 注册service worker
+    navigator.serviceWorker.register("./sw.js").then(res => {
+      console.log("页面一：sw注册成功!")
+    })
+    btn.onclick = () => {
+      // 发送消息
+      navigator.serviceWorker.controller.postMessage({
+        sendMessage: text.value
+      })
+    }
+  </script>
+</body>
+</html>
