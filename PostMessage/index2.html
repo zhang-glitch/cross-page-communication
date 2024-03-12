@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    window.name = "页面二"
+    window.addEventListener("message", (event) => {
+      // 为了数据安全，确定来源
+      if(event.origin.includes("http://127.0.0.1")) {
+        console.log("event", event)
+        // 回复数据
+        event.source.postMessage({
+          data: "回复数据"
+        }, event.origin)
+      }else {
+        console.log("不安全数据")
+      }
+    })
+  </script>
+</body>
+</html>

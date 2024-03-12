@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="openBtn">打开index2.html窗口</button>
+  <input type="text" id="text">
+  <button id="btn">发送数据</button>
+  <script>
+    const text = document.querySelector("#text")
+    const btn = document.querySelector("#btn")
+    const openBtn = document.querySelector("#openBtn")
+    let index2Window = null
+    window.name = "页面一"
+    openBtn.onclick = () => {
+      // 使用hmserve库启动一个服务
+      index2Window = window.open("http://localhost:8888/index2.html")
+    }
+
+    btn.onclick = () => {
+      console.log("index2Window", index2Window)
+      // 发送的数据
+      // 指定哪些窗口能接收到消息事件
+      index2Window?.postMessage({
+        data: text.value
+      }, "http://localhost:8888")
+    }
+
+    // 监听数据的回复
+    window.addEventListener("message", (event) => {
+      if(event.origin.includes("http://localhost:8888")) {
+        console.log("event", event)
+      }else {
+        console.log("不安全数据")
+      }
+    })
+  </script>
+</body>
+</html>

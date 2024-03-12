@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 获取指定cookie字段
+    function getCookie(key) {
+      return document.cookie.split(';').map(c => c.trim()).find(item => item.includes(`${key}=`))?.replace(`${key}=`, "")
+    }
+    const cookie = document.cookie
+    console.log("全部cookie", cookie)
+    let cookieName = ""
+    setInterval(() => {
+      if(getCookie("name") !== cookieName) {
+        console.log("前一次cookie name", cookieName)
+        console.log("当前cookie name", getCookie("name"))
+        cookieName = getCookie("name")
+      }
+    })
+  </script>
+</body>
+</html>

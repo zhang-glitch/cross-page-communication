@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 和服务器建立连接
+    const ws = new WebSocket("ws://localhost:3000")
+
+    ws.onmessage = (event) => {
+      console.log("event", event)
+      ws.send("我接收倒了消息")
+    }
+
+     // 关闭窗口或者刷新时关闭服务器连接
+    window.onbeforeunload = () => {
+      ws.close()
+    }
+  </script>
+</body>
+</html>
